@@ -1,3 +1,6 @@
+export const MAX_ALLOWED_GUESSES = 10;
+export const GUESS_SIZE = 4;
+
 export const COLORS = {
   "1": '#e11d48',
   "2": '#3b82f6',

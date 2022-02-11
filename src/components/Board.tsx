@@ -1,26 +1,9 @@
-import { useState } from "react";
-import { useImmer } from "use-immer";
+import { useGame } from "../contexts/GameContext";
 
-import { type Guess, type ColorID, COLORS } from "../logic/constants";
-import { calculateHints, MATCH } from "../logic/game";
-import { getRandomListOf } from "../logic/guess";
+import { type ColorID, MAX_ALLOWED_GUESSES } from "../logic/constants";
+import { MATCH } from "../logic/game";
 import Guesses from "./Guesses";
 import Hints from "./Hints";
-
-function initializeGameState(rowsCount: number, guessSize: number) {
-  return Array.from({ length: rowsCount }, () => ({
-    guesses: Array.from({ length: guessSize }, () => null as Guess),
-    hints: Array.from<MATCH>({ length: guessSize }),
-  }));
-}
-
-const MAX_ALLOWED_GUESS = 10;
-const GUESS_SIZE = 4;
-
-const ANSWER = getRandomListOf<ColorID>(
-  GUESS_SIZE,
-  Object.keys(COLORS) as ColorID[]
-);
 
 const enum GAME_STATUS {
   PLAYING = "playing",
@@ -29,36 +12,29 @@ const enum GAME_STATUS {
 }
 
 const Board: React.VFC = () => {
-  const [guessIndex, setGuessIndex] = useState(0);
-  const [gameStatus, setGameStatus] = useState(GAME_STATUS.PLAYING);
-  const [gameStatue, setGameState] = useImmer(
-    initializeGameState(MAX_ALLOWED_GUESS, GUESS_SIZE)
-  );
+  const { game, dispatch } = useGame();
 
   const handleGuessClick = (index: number, colorId: ColorID) => {
-    setGameState((draft) => {
-      draft[guessIndex].guesses[index] = colorId;
+    dispatch({
+      type: "UPDATE_ROW_GUESS",
+      payload: { guessIndex: index, guess: colorId },
     });
   };
 
-  const handleCheckClick = (index: number) => {
-    const hints = calculateHints(
-      gameStatue[index].guesses as ColorID[],
-      ANSWER
-    );
-
-    setGameState((draft) => {
-      draft[guessIndex].hints = hints;
-    });
-
-    setGuessIndex((prevIndex) => prevIndex + 1);
-
-    if (hints.every((h) => h === MATCH.OK)) {
-      setGameStatus(GAME_STATUS.WIN);
-    } else if (guessIndex >= MAX_ALLOWED_GUESS - 1) {
-      setGameStatus(GAME_STATUS.LOOSE);
-    }
+  const handleCheckClick = () => {
+    dispatch({ type: "CHECK_CURRENT_ROW" });
   };
+
+  const isWin = game.rows[game.currentRowIndex - 1]?.hints.every(
+    (h) => h === MATCH.OK
+  );
+  const isGameOver = game.currentRowIndex > MAX_ALLOWED_GUESSES - 1;
+
+  const gameStatus = isWin
+    ? GAME_STATUS.WIN
+    : isGameOver
+    ? GAME_STATUS.LOOSE
+    : GAME_STATUS.PLAYING;
 
   return (
     <div>
@@ -73,17 +49,20 @@ const Board: React.VFC = () => {
         </div>
       ) : null}
 
-      {gameStatue.map((row, index) => (
+      {game.rows.map((row, index) => (
         <div key={index} className="flex justify-between py-2">
           <Guesses
             guesses={row.guesses}
-            isActive={guessIndex === index}
+            isActive={
+              gameStatus === GAME_STATUS.PLAYING &&
+              game.currentRowIndex === index
+            }
             onGuessClick={handleGuessClick}
           />
           <Hints
             hints={row.hints}
             showCheck={row.guesses.every(Boolean) && !row.hints.every(Boolean)}
-            onCheckClick={() => handleCheckClick(index)}
+            onCheckClick={handleCheckClick}
           />
         </div>
       ))}
