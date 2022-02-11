@@ -61,14 +61,14 @@ const Board: React.VFC = () => {
   };
 
   return (
-    <div className="relative">
+    <div>
       {gameStatus !== GAME_STATUS.PLAYING ? (
-        <div className="absolute bg-slate-200 bg-opacity-90 rounded-md w-full h-full flex flex-col justify-center items-center text-center z-10">
-          <p className="text-4xl mb-3">
+        <div className="bg-gray-800 text-white mb-4 py-3 rounded-lg w-full h-full flex flex-col justify-center items-center text-center">
+          <p className="text-3xl mb-2">
             {gameStatus === GAME_STATUS.WIN ? "🎉" : "☹"}
           </p>
-          <h3 className="text-2xl font-bold">
-            {gameStatus === GAME_STATUS.WIN ? "You Won" : "Game Over"}
+          <h3 className="text-xl font-bold">
+            {gameStatus === GAME_STATUS.WIN ? "Hoooooary" : "Game Over"}
           </h3>
         </div>
       ) : null}
