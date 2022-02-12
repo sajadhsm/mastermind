@@ -1,18 +1,47 @@
+import { useState } from "react";
 import { useGame } from "../contexts/GameContext";
+
+import IcRoundHelpOutline from "./Icons/IcRoundHelpOutline";
+import IcRoundReplay from "./Icons/IcRoundReplay";
+import IconButton from "./IconButton";
+import GameRules from "./GameRules";
+import Modal from "./Modal";
 
 const Header: React.VFC = () => {
   const { dispatch } = useGame();
 
+  const [isRulesModalOpen, setIsRulesModalOpen] = useState(false);
+
+  function toggleIsRulesModal() {
+    setIsRulesModalOpen((close) => !close);
+  }
+
   return (
-    <header className="flex justify-between items-center text-center border-b-2 border-gray-300 py-2 mb-4">
-      <h1 className="text-xl font-bold">Mastermind</h1>
-      <button
-        className="rounded-full py-1 px-2 text-xs font-bold hover:bg-gray-800 hover:text-white"
-        onClick={() => dispatch({ type: "NEW_GAME" })}
+    <>
+      <header className="flex justify-between items-center border-b-2 border-gray-300 py-3 mb-6 px-2 sm:px-0">
+        <h1 className="text-xl font-bold">Mastermind</h1>
+        <div className="flex gap-3">
+          <IconButton
+            title="New Game"
+            onClick={() => dispatch({ type: "NEW_GAME" })}
+          >
+            <IcRoundReplay />
+          </IconButton>
+
+          <IconButton title="Game Rules" onClick={toggleIsRulesModal}>
+            <IcRoundHelpOutline />
+          </IconButton>
+        </div>
+      </header>
+
+      <Modal
+        title="Game Rules"
+        isOpen={isRulesModalOpen}
+        onClose={toggleIsRulesModal}
       >
-        New Game
-      </button>
-    </header>
+        <GameRules />
+      </Modal>
+    </>
   );
 };
 

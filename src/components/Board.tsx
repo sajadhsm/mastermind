@@ -37,14 +37,14 @@ const Board: React.VFC = () => {
     : GAME_STATUS.PLAYING;
 
   return (
-    <div>
+    <div className="px-2 sm:px-0">
       {gameStatus !== GAME_STATUS.PLAYING ? (
         <div className="bg-gray-800 text-white mb-4 py-3 rounded-lg w-full h-full flex flex-col justify-center items-center text-center">
           <p className="text-3xl mb-2">
             {gameStatus === GAME_STATUS.WIN ? "🎉" : "☹"}
           </p>
           <h3 className="text-xl font-bold">
-            {gameStatus === GAME_STATUS.WIN ? "Hoooooary" : "Game Over"}
+            {gameStatus === GAME_STATUS.WIN ? "Hoooooray" : "Game Over"}
           </h3>
         </div>
       ) : null}
