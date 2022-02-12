@@ -39,33 +39,41 @@ const Board: React.VFC = () => {
   return (
     <div className="px-2 sm:px-0">
       {gameStatus !== GAME_STATUS.PLAYING ? (
-        <div className="bg-gray-800 text-white mb-4 py-3 rounded-lg w-full h-full flex flex-col justify-center items-center text-center">
-          <p className="text-3xl mb-2">
-            {gameStatus === GAME_STATUS.WIN ? "🎉" : "☹"}
-          </p>
-          <h3 className="text-xl font-bold">
-            {gameStatus === GAME_STATUS.WIN ? "Hoooooray" : "Game Over"}
-          </h3>
-        </div>
+        <GameFinishStatus isWin={gameStatus === GAME_STATUS.WIN} />
       ) : null}
 
-      {game.rows.map((row, index) => (
-        <div key={index} className="flex justify-between py-2">
-          <Guesses
-            guesses={row.guesses}
-            isActive={
-              gameStatus === GAME_STATUS.PLAYING &&
-              game.currentRowIndex === index
-            }
-            onGuessClick={handleGuessClick}
-          />
-          <Hints
-            hints={row.hints}
-            showCheck={row.guesses.every(Boolean) && !row.hints.every(Boolean)}
-            onCheckClick={handleCheckClick}
-          />
-        </div>
-      ))}
+      {game.rows.map((row, index) => {
+        const isActive =
+          gameStatus === GAME_STATUS.PLAYING && game.currentRowIndex === index;
+
+        const canCheck =
+          row.guesses.every(Boolean) && !row.hints.every(Boolean);
+
+        return (
+          <div key={index} className="flex justify-between py-2">
+            <Guesses
+              isActive={isActive}
+              guesses={row.guesses}
+              onGuessClick={handleGuessClick}
+            />
+            <Hints
+              hints={row.hints}
+              canCheck={canCheck}
+              showCheck={isActive}
+              onCheckClick={handleCheckClick}
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const GameFinishStatus: React.VFC<{ isWin: boolean }> = ({ isWin }) => {
+  return (
+    <div className="bg-gray-800 text-white mb-4 py-3 rounded-lg w-full h-full flex flex-col justify-center items-center text-center">
+      <p className="text-3xl mb-2">{isWin ? "🎉" : "☹"}</p>
+      <h3 className="text-xl font-bold">{isWin ? "Hoooooray" : "Game Over"}</h3>
     </div>
   );
 };

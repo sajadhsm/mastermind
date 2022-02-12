@@ -2,14 +2,20 @@ import { MATCH } from "../logic/game";
 
 const Hints: React.VFC<{
   hints: MATCH[];
+  canCheck: boolean;
   showCheck: boolean;
   onCheckClick: () => void;
-}> = ({ hints, showCheck, onCheckClick }) => {
+}> = ({ hints, showCheck, canCheck, onCheckClick }) => {
   return (
     <div className="flex justify-center items-center w-24">
       {showCheck ? (
         <button
-          className="border-2 border-gray-800 text-gray-800 font-bold hover:bg-gray-800 hover:text-white rounded-full py-1 w-full"
+          disabled={!canCheck}
+          className={[
+            "font-bold border-2 border-gray-800 text-gray-800 rounded-full py-1 w-full",
+            "hover:bg-gray-800 hover:text-white",
+            "disabled:hover:text-gray-800 disabled:hover:bg-transparent disabled:opacity-50 disabled:cursor-not-allowed",
+          ].join(" ")}
           onClick={onCheckClick}
         >
           Check

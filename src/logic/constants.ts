@@ -1,4 +1,4 @@
-export const MAX_ALLOWED_GUESSES = 10;
+export const MAX_ALLOWED_GUESSES = 8;
 export const GUESS_SIZE = 4;
 
 export const COLORS = {
