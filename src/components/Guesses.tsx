@@ -30,7 +30,12 @@ const Guesses: React.VFC<{
             disabled={!isActive}
           />
           {isActive && openColorPickerIndex === index && (
-            <ColorPicker onClick={(color) => onGuessClick(index, color)} />
+            <ColorPicker
+              onClick={(color) => {
+                onGuessClick(index, color);
+                setOpenColorPickerIndex(-1);
+              }}
+            />
           )}
         </div>
       ))}
