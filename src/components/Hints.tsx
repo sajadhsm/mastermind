@@ -7,7 +7,7 @@ const Hints: React.VFC<{
   onCheckClick: () => void;
 }> = ({ hints, showCheck, canCheck, onCheckClick }) => {
   return (
-    <div className="flex justify-center items-center w-24">
+    <div className="flex justify-between items-center w-20 sm:w-24">
       {showCheck ? (
         <button
           disabled={!canCheck}
@@ -31,7 +31,7 @@ const Hint: React.VFC<{ hint: MATCH }> = ({ hint }) => {
   return (
     <div
       className={
-        "w-4 h-4 mx-1 rounded-full border-2 border-gray-800 " +
+        "w-4 h-4 rounded-full border-2 border-gray-800 " +
         (hint === MATCH.OK
           ? "bg-green-600"
           : hint === MATCH.MISPLACED

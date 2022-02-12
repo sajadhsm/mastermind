@@ -50,7 +50,7 @@ const Board: React.VFC = () => {
           row.guesses.every(Boolean) && !row.hints.every(Boolean);
 
         return (
-          <div key={index} className="flex justify-between py-2">
+          <div key={index} className="flex justify-between gap-4 sm:gap-10 py-2">
             <Guesses
               isActive={isActive}
               guesses={row.guesses}

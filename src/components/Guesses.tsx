@@ -18,7 +18,7 @@ const Guesses: React.VFC<{
   }
 
   return (
-    <div className="flex justify-around items-center flex-1">
+    <div className="flex justify-between items-center flex-1">
       {guesses.map((guess, index) => (
         <div key={index} className="relative">
           <button
