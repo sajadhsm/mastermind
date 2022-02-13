@@ -2,7 +2,7 @@ import React, { createContext, useContext } from "react";
 import { useImmerReducer } from "use-immer";
 
 import { calculateHints, MATCH } from "../logic/game";
-import { getRandomListOf } from "../logic/guess";
+import { getRandomListOf } from "../logic/utils";
 import {
   MAX_ALLOWED_GUESSES,
   GUESS_SIZE,
