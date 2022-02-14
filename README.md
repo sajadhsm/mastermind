@@ -13,7 +13,8 @@ https://master-mind.surge.sh
 [React](https://reactjs.org/),
 [TypeScript](https://typescriptlang.org/),
 [Tailwind CSS](https://tailwindcss.com/),
-[Vite](https://vitejs.dev/)
+[Vite](https://vitejs.dev/),
+[Vitest](https://vitest.dev/)
 
 ## Development
 Requirement: [**Node.js**](https://nodejs.org/)
