@@ -17,7 +17,7 @@ const GameRules: React.VFC = () => {
       <ul className="list-disc list-inside my-2">
         <li>A green circle means the color and the position is correct.</li>
         <li>
-          A orange circle means that the color exists in the combination but the
+          An orange circle means that the color exists in the combination but the
           position is not correct.
         </li>
         <li>
