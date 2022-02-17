@@ -9,7 +9,7 @@ const Modal: React.FC<{
   if (!isOpen) return null;
 
   return (
-    <div className="absolute z-50 top-16 max-w-sm bg-white rounded-lg shadow-lg py-2 px-4 border-2">
+    <div className="absolute z-50 top-16 max-w-sm bg-white dark:bg-slate-900 rounded-lg shadow-lg py-2 px-4 border-2 dark:border-slate-700">
       <div className="flex justify-between items-center mb-3">
         <h2 className="font-bold">{title}</h2>
 

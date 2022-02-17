@@ -7,11 +7,10 @@ export const COLORS = {
   "3": '#22c55e',
   "4": '#f97316',
   "5": '#7c3aed',
-  "6": '#111827',
+  "6": '#92400e',
   "7": '#94a3b8',
   "8": '#d946ef',
   "9": '#fbbf24',
-  // "10": '#92400e',
 }
 
 export type ColorID = keyof typeof COLORS;

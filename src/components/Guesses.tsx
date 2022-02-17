@@ -22,8 +22,8 @@ const Guesses: React.VFC<{
       {guesses.map((guess, index) => (
         <div key={index} className="relative">
           <button
-            className={`w-9 h-9 rounded-full border-4 border-gray-800 ${
-              !guess && isActive ? "hover:bg-gray-200" : ""
+            className={`w-9 h-9 rounded-full border-4 border-slate-900 dark:border-slate-700 ${
+              !guess && isActive ? "hover:bg-slate-200 dark:hover:bg-slate-800" : ""
             }`}
             style={{ backgroundColor: guess ? COLORS[guess] : "" }}
             onClick={() => handleOpenColorPicker(index)}
